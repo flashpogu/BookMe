@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import "dotenv/config";
 import userRoutes from "./routes/userRoutes";
@@ -28,7 +28,7 @@ app.use("/api/auth", authRoutes);
 
 app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
-app.get("*", (req, res) => {
+app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
 });
 

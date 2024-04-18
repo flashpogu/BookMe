@@ -80,8 +80,10 @@ export default function DetailsSection() {
           <option value="" className="text-sm font-bold">
             Select as Rating
           </option>
-          {[1, 2, 3, 4, 5].map((n) => (
-            <option value={n}>{n}</option>
+          {[1, 2, 3, 4, 5].map((starNum) => (
+            <option key={starNum} value={starNum}>
+              {starNum}
+            </option>
           ))}
         </select>
         {errors.starRating && (

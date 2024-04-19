@@ -21,7 +21,7 @@ export default function Header() {
               </Link>
               <Link
                 className="flex items-center text-white px-3 font-bold hover:bg-blue-600"
-                to="/my-bookings"
+                to="/my-hotel"
               >
                 My Hotels
               </Link>

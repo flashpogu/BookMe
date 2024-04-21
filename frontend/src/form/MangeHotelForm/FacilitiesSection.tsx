@@ -17,9 +17,9 @@ export default function FacilitiesSection() {
             <input
               type="checkbox"
               value={facility}
-              {...register("facilites", {
-                validate: (facilites) => {
-                  if (facilites.length > 0 && facilites) {
+              {...register("facilities", {
+                validate: (facilities) => {
+                  if (facilities.length > 0 && facilities) {
                     return true;
                   } else {
                     return "At least one facility is required";
@@ -31,9 +31,9 @@ export default function FacilitiesSection() {
           </label>
         ))}
       </div>
-      {errors.facilites && (
+      {errors.facilities && (
         <span className="text-red-500 text-sm font-bold">
-          {errors.facilites.message}
+          {errors.facilities.message}
         </span>
       )}
     </div>

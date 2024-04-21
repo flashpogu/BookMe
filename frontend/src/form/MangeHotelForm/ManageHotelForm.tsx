@@ -4,6 +4,14 @@ import TypeSection from "./TypeSection";
 import FacilitiesSection from "./FacilitiesSection";
 import GuestSection from "./GuestSection";
 import ImagesSection from "./ImagesSection";
+import { HotelType } from "../../../../backend/src/shared/types";
+import { useEffect } from "react";
+
+type Props = {
+  hotel?: HotelType | undefined;
+  onSave: (hotelFormData: FormData) => void;
+  isLoading: boolean;
+};
 
 export type HotelFormData = {
   name: string;
@@ -13,24 +21,26 @@ export type HotelFormData = {
   type: string;
   pricePerNight: number;
   starRating: number;
-  facilites: string[];
+  facilities: string[];
   imageFiles: FileList;
+  imageUrls: string[];
   adultCount: number;
   childCount: number;
 };
 
-type Props = {
-  onSave: (hotelFormData: FormData) => void;
-  isLoading: boolean;
-};
-
-export default function ManageHotelForm({ onSave, isLoading }: Props) {
+export default function ManageHotelForm({ hotel, onSave, isLoading }: Props) {
   const formMethods = useForm<HotelFormData>();
-  const { handleSubmit } = formMethods;
+  const { handleSubmit, reset } = formMethods;
+
+  useEffect(() => {
+    reset(hotel);
+  }, [hotel, reset]);
 
   const onSubmit = handleSubmit((formDataJson: HotelFormData) => {
-    // create new formData object & call our API
     const formData = new FormData();
+    if (hotel) {
+      formData.append("hotelId", hotel._id);
+    }
     formData.append("name", formDataJson.name);
     formData.append("city", formDataJson.city);
     formData.append("country", formDataJson.country);
@@ -41,9 +51,15 @@ export default function ManageHotelForm({ onSave, isLoading }: Props) {
     formData.append("adultCount", formDataJson.adultCount.toString());
     formData.append("childCount", formDataJson.childCount.toString());
 
-    formDataJson.facilites.forEach((facility, index) => {
-      formData.append(`facilites[${index}]`, facility);
+    formDataJson.facilities.forEach((facility, index) => {
+      formData.append(`facilities[${index}]`, facility);
     });
+
+    if (formDataJson.imageUrls) {
+      formDataJson.imageUrls.forEach((url, index) => {
+        formData.append(`imageUrls[${index}]`, url);
+      });
+    }
 
     Array.from(formDataJson.imageFiles).forEach((imageFile) => {
       formData.append(`imageFiles`, imageFile);

@@ -61,7 +61,7 @@ export default function DetailsSection() {
         <input
           type="number"
           min={1}
-          max={5}
+          max={5000}
           className="border rounded w-full py-3 px-2 font-normal"
           {...register("pricePerNight", { required: "This field is required" })}
         ></input>

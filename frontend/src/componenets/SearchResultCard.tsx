@@ -50,7 +50,7 @@ export default function SearchResultCard({ hotel }: Props) {
           </div>
           <div className="flex flex-col items-end gap-1">
             <span className="font-bold">
-              ${hotel.pricePerNight.toString()} per night
+              ₹{hotel.pricePerNight.toString()} per night
             </span>
             <Link
               to={`/detail/${hotel._id}`}

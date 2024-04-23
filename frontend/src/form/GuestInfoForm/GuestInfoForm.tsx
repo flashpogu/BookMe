@@ -18,7 +18,7 @@ type GuestInfoFormData = {
 
 export default function GuestInfoForm({ hotelId, pricePerNight }: Props) {
   const search = useSearchContext();
-  const isLoggedIn = useAppContext();
+  const isLoggedIn = useAppContext().isLoggedIn;
   const navigate = useNavigate();
   const location = useLocation();
   const {
